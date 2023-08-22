@@ -1,59 +1,36 @@
-INSERT INTO Persons_Table (Id,FirstName,LastName,Age,Address,Gender)
-VALUES(9,'Huxley','Cook',22,'Kyiv','Male')
+CREATE TABLE Authors (
+    authorID INT PRIMARY KEY,
+    AuthorName VARCHAR(100) NOT NULL
+);
 
-INSERT INTO Persons_Table (Id,FirstName,LastName,Age,Address,Gender)
-VALUES(2,'Diego','Howard',45,'Chicago','Male')
+CREATE TABLE Customers (
+    customerID INT PRIMARY KEY,
+    CustomerName VARCHAR(100) NOT NULL,
+    Email VARCHAR(100)
+);
 
-INSERT INTO Persons_Table (Id,FirstName,LastName,Age,Address,Gender)
-VALUES(3,'Jorge','Young',19,'Dublin','Female')
+CREATE TABLE Books (
+    bookID INT PRIMARY KEY,
+    Title VARCHAR(100) NOT NULL,
+    authorID INT,
+    publicationYear INT NOT NULL,
+    FOREIGN KEY (authorID) REFERENCES Authors(authorID)
+);
 
-INSERT INTO Persons_Table (Id,FirstName,LastName,Age,Address,Gender)
-VALUES(4,'Calvin','Rodriguez',17,'Dubai','Male')
 
-INSERT INTO Persons_Table (Id,FirstName,LastName,Age,Address,Gender)
-VALUES(10,'Xu','White',9,'Seoul','Male')
+CREATE TABLE BookLoans (
+    loanID INT PRIMARY KEY,
+    customerID INT,
+    bookID INT,
+    loanDate DATE NOT NULL,
+    returnLoanDate DATE,
+    FOREIGN KEY (customerID) REFERENCES Customers(customerID),
+    FOREIGN KEY (bookID) REFERENCES Books(bookID)
+);
 
-INSERT INTO Persons_Table (Id,FirstName,LastName,Age,Address,Gender)
-VALUES(8,'Braydon','Green',24,'Venice','Female')
-
-INSERT INTO Persons_Table (Id,FirstName,LastName,Age,Address,Gender)
-VALUES(7,'Yaqub','Allen',34,'Tokyo','Male')
-
-INSERT INTO Persons_Table (Id,FirstName,LastName,Age,Address,Gender)
-VALUES(5,'Neil','Baker',31,'Warsaw','Male')
-
-INSERT INTO Persons_Table (Id,FirstName,LastName,Age,Address,Gender)
-VALUES(1,'Valentin','Hayes',16,'Stockholm','Female')
-
-INSERT INTO Persons_Table (Id,FirstName,LastName,Age,Address,Gender)
-VALUES(6,'Kaden','Hayes',23,'Singapore','Male')
-
-INSERT INTO Persons_Table (Id,FirstName,LastName,Age,Address,Gender)
-VALUES(12,'Philip','Gonzalez',35,'Shanghai','Male')
-
-INSERT INTO Persons_Table (Id,FirstName,LastName,Age,Address,Gender)
-VALUES(11,'Gavin','Sanders',16,'Kyiv','Male')
-
-INSERT INTO Persons_Table (Id,FirstName,LastName,Age,Address,Gender)
-VALUES(13,'Emiliano','Allen',44,'New York','Male')
-
-INSERT INTO Persons_Table (Id,FirstName,LastName,Age,Address,Gender)
-VALUES(15,'Silas','Bell',22,'Madrid','Female')
-
-INSERT INTO Persons_Table (Id,FirstName,LastName,Age,Address,Gender)
-VALUES(17,'Yoshiaki','Flores',8,'London','Male')
-
-INSERT INTO Persons_Table (Id,FirstName,LastName,Age,Address,Gender)
-VALUES(20,'Raiden','Simmons',21,'Kyiv','Male')
-
-INSERT INTO Persons_Table (Id,FirstName,LastName,Age,Address,Gender)
-VALUES(14,'Titus','Moore',35,'Kyiv','Male')
-
-INSERT INTO Persons_Table (Id,FirstName,LastName,Age,Address,Gender)
-VALUES(18,'Tyrone','Powell',12,'Los Angeles','Female')
-
-INSERT INTO Persons_Table (Id,FirstName,LastName,Age,Address,Gender)
-VALUES(16,'Felipe','Lee',24,'Kyiv','Male')
-
-INSERT INTO Persons_Table (Id,FirstName,LastName,Age,Address,Gender)
-VALUES(19,'Yaqub','Anderson',18,'Berlin','Female')
+CREATE TABLE BookCounts (
+    bookID INT PRIMARY KEY,
+    totalCount INT NOT NULL,
+    availableCount INT NOT NULL,
+    FOREIGN KEY (bookID) REFERENCES Books(bookID)
+);
